@@ -36,6 +36,13 @@ public class Streams {
     private void iterateExample() {
         System.out.println("\niterate()");
 
+        // Overload to existing iterate(), taking a function to make the previously infinte stream finite
+        // 1st argument tells the stream where to start
+        // 2nd argument tells the stream when to stop
+        // 3rd argument tells the stream how to iterate
+        Stream.iterate(0, i -> i < 10, i -> i + 1)
+            .forEach(System.out::print);
+
         System.out.println();
     }
 
