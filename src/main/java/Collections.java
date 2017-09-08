@@ -56,13 +56,9 @@ public class Collections {
 
         System.out.println();
 
+        // using streams Java 8 style
         List<String> blah = Stream.of("foo", "bar", "baz")
                 .collect(Collectors.collectingAndThen(toList(), java.util.Collections::unmodifiableList));
-        //                .collect(Collectors.collectingAndThen(
-        //                                toList(),
-        //                                Collections:
-        //                        )
-        //                );
     }
 
     /**
