@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Streams {
@@ -47,8 +48,24 @@ public class Streams {
     }
 
     private void ofNullableExample() {
-        System.out.println("\nofNullable");
+        System.out.println("\nofNullable()");
+
+        System.out.println("Instance is NOT null. Prints names.");
+        Puzzle puzzlerNonNull = new Puzzle();
+        Stream.ofNullable(puzzlerNonNull).flatMap(Puzzle::getEmployees).forEach(System.out::println);
+
+        System.out.println("\nInstance is null. Nothing gets printed.");
+        Puzzle puzzlerNull = null;
+        Stream.ofNullable(puzzlerNull).flatMap(Puzzle::getEmployees).forEach(System.out::println);
 
         System.out.println();
+    }
+
+    class Puzzle {
+        private List<String> employees = List.of("Lugi", "Max", "Lara", "Andy", "Ramon");
+
+        Stream<String> getEmployees() {
+            return this.employees.stream();
+        }
     }
 }
