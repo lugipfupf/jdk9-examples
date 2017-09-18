@@ -41,9 +41,9 @@ public class Http2 {
             .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandler.asString());
-        System.out.println(response.statusCode());
 
         // behold: lots of unformatted JSON will be thrown at you
+        System.out.println(response.statusCode());
         System.out.println(response.body());
     }
 }
