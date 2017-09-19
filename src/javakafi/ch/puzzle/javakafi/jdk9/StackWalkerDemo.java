@@ -1,5 +1,8 @@
 package ch.puzzle.javakafi.jdk9;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StackWalkerDemo {
     public static void main(String[] args) {
         new StackWalkerDemo();
@@ -8,6 +11,19 @@ public class StackWalkerDemo {
     private StackWalkerDemo() {
         basicStackTrace();
         whoIsCallingMe();
+        walkTheStack();
+    }
+
+    private void walkTheStack() {
+        StackWalker stackWalker = StackWalker.getInstance();
+        stackWalker.walk(
+            s -> s.takeWhile(
+                f -> f.getMethodName().endsWith("walkTheStack"))
+                      .collect(Collectors.toList())
+        )
+        .forEach(
+            el -> System.out.println(el.toString())
+        );
     }
 
     private void basicStackTrace() {
