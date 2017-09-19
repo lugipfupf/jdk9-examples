@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpRequest;
@@ -23,6 +24,7 @@ public class Http2 {
     private Http2() throws Exception {
         basicHtttRequest();
         basicHttp2Request();
+        asyncHttp2Request();
     }
 
     private void basicHtttRequest() throws Exception {
@@ -68,5 +70,28 @@ public class Http2 {
         System.out.println(response.statusCode());
         System.out.println(response.body());
         System.out.println();
+    }
+
+    private void asyncHttp2Request() throws Exception {
+        System.out.println("Now, do an asynchronous request using http2 client:");
+
+        // build request
+        HttpRequest request = HttpRequest
+            .newBuilder()
+            .uri(new URI(URL))
+            .timeout(Duration.ofSeconds(5))
+            .GET()
+            .build();
+
+        // build client and feed it the request we just created
+        HttpClient client = HttpClient.newHttpClient();
+        CompletableFuture<HttpResponse<String>>  asyncResponse = client.sendAsync(request, HttpResponse.BodyHandler.asString());
+
+        while (!asyncResponse.isDone()) {
+            System.out.print(".");
+            Thread.sleep(100);
+        }
+        System.out.println(asyncResponse.get().statusCode());
+        System.out.print("\n" + asyncResponse.get().body());
     }
 }
