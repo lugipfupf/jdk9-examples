@@ -3,7 +3,6 @@ package ch.puzzle.javakafi.jdk9;
 public class StackWalkerDemo {
     public static void main(String[] args) {
         new StackWalkerDemo();
-
     }
 
     private StackWalkerDemo() {
@@ -11,19 +10,19 @@ public class StackWalkerDemo {
         whoIsCallingMe();
     }
 
-    private void whoIsCallingMe() {
-        System.out.println("Find out, who's calling:");
-
-        CallerDemo cd = new CallerDemo();
-        cd.whoisCallingMe();
-
-        System.out.println();
-    }
-
     private void basicStackTrace() {
         System.out.println("Print a basic stack trace:");
 
         step1();
+
+        System.out.println();
+    }
+
+    private void whoIsCallingMe() {
+        System.out.println("Look, who's calling:");
+
+        CallerDemo cd = new CallerDemo();
+        cd.whoisCallingMe();
 
         System.out.println();
     }
