@@ -17,6 +17,8 @@ public class StackWalkerDemo {
     }
 
     private void walkTheStack() {
+        System.out.println("Walk the stack, only taking interesting frames:");
+
         StackWalker stackWalker = StackWalker.getInstance();
         stackWalker.walk(
             s -> s.takeWhile(
@@ -28,6 +30,8 @@ public class StackWalkerDemo {
         .forEach(
             el -> System.out.println(el.toString())
         );
+
+        System.out.println();
     }
 
     private void getClassContextClassic() {
